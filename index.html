@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Инструменты психологической самопомощи: настроение, дневник, упражнения, цели."
+    />
+    <title data-i18n="app.title">Самопомощь и мотивация</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    
+    
+    <a class="skip-link" href="#main" data-i18n="app.skip">Перейти к содержимому</a>
+
+    <header class="app-header">
+      <div class="container header-inner">
+        <div class="brand" data-route="home" aria-label="Самопомощь и мотивация">
+          <div class="brand-mark" aria-hidden="true">PSY</div>
+          <div class="brand-text">
+            <div class="brand-title" data-i18n="brand.title">Самопомощь</div>
+            <div class="brand-subtitle" data-i18n="brand.subtitle">настроение · дневник · упражнения · цели</div>
+          </div>
+        </div>
+
+        <nav class="nav" aria-label="Разделы">
+          <button class="nav-link" data-route="home" type="button" data-i18n="nav.home">Главная</button>
+          <button class="nav-link" data-route="mood" type="button" data-i18n="nav.mood">Настроение</button>
+          <button class="nav-link" data-route="journal" type="button" data-i18n="nav.journal">Дневник</button>
+          <button class="nav-link" data-route="exercises" type="button" data-i18n="nav.exercises">Упражнения</button>
+          <button class="nav-link" data-route="articles" type="button" data-i18n="nav.articles">Статьи</button>
+          <button class="nav-link" data-route="tests" type="button" data-i18n="nav.tests">Тесты</button>
+          <button class="nav-link" data-route="goals" type="button" data-i18n="nav.goals">Цели</button>
+          <button class="nav-link" data-route="auth" type="button" data-i18n="nav.auth">Вход</button>
+          <button class="nav-link" data-route="settings" type="button" data-i18n="nav.settings">Настройки</button>
+        </nav>
+        <div class="auth-mini">
+          <button class="btn small" id="langToggle" type="button" aria-label="Switch language">EN</button>
+          <span class="chip" id="authStatus" data-i18n="auth.guest">Гость</span>
+          <button class="btn small" id="logoutBtn" type="button" hidden data-i18n="auth.logout">Выйти</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main" class="container" tabindex="-1">
+      <section class="route" data-view="home">
+        <div class="hero">
+          <div class="hero-copy">
+            <h1 data-i18n="home.h1">Поддержка, когда она нужна</h1>
+            <p class="muted" data-i18n="home.lead">
+              Этот инструмент помогает отслеживать состояние, вести заметки и поддерживать мотивацию каждый
+              день.
+            </p>
+            <div class="hero-actions">
+              <button class="btn primary" data-route="mood" type="button" data-i18n="home.ctaMood">Отметить настроение</button>
+              <button class="btn" data-route="journal" type="button" data-i18n="home.ctaJournal">Сделать запись</button>
+              <button class="btn" data-route="articles" type="button" data-i18n="home.ctaArticles">Читать статьи</button>
+            </div>
+          </div>
+
+          <div class="hero-card" data-i18n-aria-label="home.summaryAria" aria-label="Сводка на сегодня">
+            <div class="card">
+              <div class="card-title" data-i18n="home.today">Сегодня</div>
+              <div class="grid2">
+                <div class="stat">
+                  <div class="stat-label" data-i18n="common.mood">Настроение</div>
+                  <div class="stat-value" id="todayMoodValue">—</div>
+                </div>
+                <div class="stat">
+                  <div class="stat-label" data-i18n="common.energy">Энергия</div>
+                  <div class="stat-value" id="todayEnergyValue">—</div>
+                </div>
+              </div>
+              <div class="divider"></div>
+              <div class="mini-list" id="todayGoalsList" data-i18n-aria-label="home.goalsFocusAria" aria-label="Фокус целей на сегодня"></div>
+              <div class="hint" id="todayHint"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid3">
+          <article class="card">
+            <h2 class="h3" data-i18n="home.quickTitle">Быстрый чек‑ин (2 минуты)</h2>
+            <p class="muted" data-i18n="home.quickDesc">Выберите одно маленькое действие и зафиксируйте, что вы чувствуете.</p>
+            <div class="inline-actions">
+              <button class="btn small" data-route="mood" type="button" data-i18n="home.quickBtn">Чек‑ин</button>
+              <button class="btn small" data-route="exercises" type="button" data-i18n="nav.exercises">Упражнения</button>
+            </div>
+          </article>
+
+          <article class="card">
+            <h2 class="h3" data-i18n="home.relaxTitle">Снять напряжение</h2>
+            <p class="muted" data-i18n="home.relaxDesc">Дыхание, заземление и быстрые техники — без мистики, только практика.</p>
+            <button class="btn small" data-open-exercise="box-breathing" type="button">
+              <span data-i18n="home.relaxBtn">Квадратное дыхание</span>
+            </button>
+          </article>
+
+          <article class="card">
+            <h2 class="h3" data-i18n="home.motivationTitle">Вернуть мотивацию</h2>
+            <p class="muted" data-i18n="home.motivationDesc">Определите ценности, сформулируйте цель и сделайте следующий шаг.</p>
+            <button class="btn small" data-route="goals" type="button" data-i18n="home.motivationBtn">Открыть цели</button>
+          </article>
+        </div>
+      </section>
+
+      <section class="route" data-view="mood" hidden>
+        <div class="page-head">
+          <h1 data-i18n="mood.title">Настроение</h1>
+          <p class="muted" data-i18n="mood.desc">Отметка занимает меньше минуты. Чем честнее — тем полезнее подсказки.</p>
+        </div>
+
+        <form class="card form" id="moodForm">
+          <div class="field">
+            <label for="moodScore" data-i18n="common.mood">Настроение</label>
+            <div class="range-row">
+              <input id="moodScore" name="moodScore" type="range" min="1" max="10" value="6" />
+              <output class="range-out" id="moodScoreOut" for="moodScore">6</output>
+            </div>
+            <div class="range-labels">
+              <span data-i18n="mood.scaleLow">тяжело</span><span data-i18n="mood.scaleMid">норм</span><span data-i18n="mood.scaleHigh">хорошо</span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="energyScore" data-i18n="common.energy">Энергия</label>
+            <div class="range-row">
+              <input id="energyScore" name="energyScore" type="range" min="1" max="10" value="6" />
+              <output class="range-out" id="energyScoreOut" for="energyScore">6</output>
+            </div>
+            <div class="range-labels">
+              <span data-i18n="mood.energyLow">нет сил</span><span data-i18n="mood.energyMid">средне</span><span data-i18n="mood.energyHigh">много</span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="moodTags" data-i18n="mood.tagsLabel">Что влияет? (по желанию)</label>
+            <input
+              id="moodTags"
+              name="moodTags"
+              type="text"
+              data-i18n-placeholder="mood.tagsPlaceholder" placeholder="сон, работа, отношения, здоровье…"
+              autocomplete="off"
+            />
+            <div class="hint" data-i18n="mood.tagsHint">Можно через запятую. Например: «сон, тревога, дедлайн».</div>
+          </div>
+
+          <div class="field">
+            <label for="moodNote" data-i18n="mood.noteLabel">Короткая заметка (по желанию)</label>
+            <textarea id="moodNote" name="moodNote" rows="3" data-i18n-placeholder="mood.notePlaceholder" placeholder="Что сейчас происходит?"></textarea>
+          </div>
+
+          <div class="actions">
+            <button class="btn primary" type="submit" data-i18n="common.save">Сохранить</button>
+            <button class="btn" id="moodQuickHelp" type="button" data-i18n="common.hint">Подсказка</button>
+          </div>
+        </form>
+
+        <div class="grid2">
+          <section class="card">
+            <div class="card-title" data-i18n="mood.historyTitle">История (2026)</div>
+            <div class="mood-chart-controls">
+              <button class="btn small" id="moodViewToggle" type="button" data-i18n="mood.viewYear">2026 год</button>
+              <button class="btn small" id="moodMonthPrev" type="button" data-i18n="common.prev">Назад</button>
+              <select class="input" id="moodMonthSelect" aria-label="Month"></select>
+              <button class="btn small" id="moodMonthNext" type="button" data-i18n="common.next">Вперёд</button>
+            </div>
+            <div class="chart" id="moodChart" role="img" data-i18n-aria-label="mood.chartAria" aria-label="Мини-график настроения"></div>
+            <div class="hint" data-i18n="mood.historyHint">График строится по вашим отметкам за 2026 год.</div>
+            <div class="hint" id="moodTrend"></div>
+          </section>
+
+          <section class="card">
+            <div class="card-title" data-i18n="mood.lastEntries">Последние отметки</div>
+            <div class="list" id="moodList"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="route" data-view="journal" hidden>
+        <div class="page-head">
+          <h1 data-i18n="journal.title">Дневник</h1>
+          <p class="muted">Записи помогают «выгрузить» мысли и увидеть повторяющиеся паттерны.</p>
+        </div>
+
+        <form class="card form" id="journalForm">
+          <div class="field">
+            <label for="journalTitle">Заголовок (по желанию)</label>
+            <input id="journalTitle" name="journalTitle" type="text" placeholder="Например: «Сложный день»" />
+          </div>
+
+          <div class="field">
+            <label for="journalText">Текст</label>
+            <textarea
+              id="journalText"
+              name="journalText"
+              rows="8"
+              placeholder="Опишите ситуацию, мысли, эмоции и что вам сейчас нужно…"
+              required
+            ></textarea>
+          </div>
+
+          <div class="grid2">
+            <div class="field">
+              <label for="journalFeelings">Эмоции (по желанию)</label>
+              <input id="journalFeelings" name="journalFeelings" type="text" placeholder="тревога, злость, грусть…" />
+            </div>
+            <div class="field">
+              <label for="journalNeeds">Потребности (по желанию)</label>
+              <input id="journalNeeds" name="journalNeeds" type="text" placeholder="отдых, поддержка, ясность…" />
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn primary" type="submit">Сохранить запись</button>
+            <button class="btn" id="journalPrompt" type="button">Подсказка вопроса</button>
+          </div>
+        </form>
+
+        <section class="card">
+          <div class="card-title">Записи</div>
+          <div class="toolbar">
+            <input id="journalSearch" class="input" type="search" placeholder="Поиск по записям…" />
+            <button class="btn small danger" id="journalClear" type="button" data-i18n="journal.clearAll">Удалить всё</button>
+          </div>
+          <div class="list" id="journalList"></div>
+        </section>
+      </section>
+
+      <section class="route" data-view="exercises" hidden>
+        <div class="page-head">
+          <h1 data-i18n="exercises.title">Упражнения</h1>
+          <p class="muted">Короткие практики: дыхание, заземление, когнитивные техники.</p>
+        </div>
+
+        <div class="grid2" id="exerciseCards"></div>
+      </section>
+
+      <section class="route" data-view="articles" hidden>
+        <div class="page-head">
+          <h1 data-i18n="articles.title">Статьи</h1>
+          <p class="muted">Короткие материалы о тревоге, выгорании, самооценке и мотивации.</p>
+        </div>
+        <div class="grid2" id="articlesList"></div>
+      </section>
+
+      <section class="route" data-view="tests" hidden>
+        <div class="page-head">
+          <h1 data-i18n="tests.title">Тесты</h1>
+          <p class="muted" data-i18n="tests.desc">Короткие опросники для самопроверки. Результаты не являются диагнозом.</p>
+        </div>
+        <div class="grid2" id="testsList"></div>
+        <section class="card tests-recommendation">
+          <div class="card-title" data-i18n="tests.recoTitle">Рекомендательный модуль</div>
+          <p class="item-body" data-i18n="tests.recoBody">
+            На основе результатов тестов и записей в дневнике система предлагает релевантные техники самопомощи.
+            Например, при высоком балле по Шкале безнадежности Бека, система в первую очередь выдаст контакты
+            кризисных центров и подчеркнет важность обращения к специалисту. При высоком балле по соматической шкале
+            BAI будут предложены дыхательные упражнения.
+          </p>
+        </section>
+      </section>
+
+      <section class="route" data-view="goals" hidden>
+        <div class="page-head">
+          <h1 data-i18n="goals.title">Цели и мотивация</h1>
+          <p class="muted">Сфокусируйтесь на смысле и следующем маленьком шаге.</p>
+        </div>
+
+        <form class="card form" id="goalForm">
+          <div class="grid2">
+            <div class="field">
+              <label for="goalTitle">Цель</label>
+              <input id="goalTitle" name="goalTitle" type="text" placeholder="Например: «Сдать проект»" required />
+            </div>
+            <div class="field">
+              <label for="goalWhy">Зачем это важно? (ценность)</label>
+              <input id="goalWhy" name="goalWhy" type="text" placeholder="Например: «рост», «стабильность», «семья»" />
+            </div>
+          </div>
+
+          <div class="grid2">
+            <div class="field">
+              <label for="goalNext">Следующий шаг (≤ 15 минут)</label>
+              <input id="goalNext" name="goalNext" type="text" placeholder="Например: «написать план из 5 пунктов»" />
+            </div>
+            <div class="field">
+              <label for="goalObstacle">Что может помешать?</label>
+              <input id="goalObstacle" name="goalObstacle" type="text" placeholder="Например: «усталость», «страх ошибки»" />
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn primary" type="submit">Добавить</button>
+          </div>
+        </form>
+
+        <section class="card">
+          <div class="card-title">Мои цели</div>
+          <div class="list" id="goalsList"></div>
+        </section>
+      </section>
+
+      <section class="route" data-view="settings" hidden>
+        <div class="page-head">
+          <h1 data-i18n="settings.title">Настройки</h1>
+          <p class="muted">Управление данными и приватностью.</p>
+        </div>
+
+        <section class="card">
+          <div class="card-title">Данные</div>
+          <div class="grid2">
+          <button class="btn" id="exportData" type="button" data-i18n="settings.export">Экспорт JSON</button>
+            <label class="btn file-btn" for="importFile">
+              <span data-i18n="settings.import">Импорт JSON</span>
+              <input id="importFile" type="file" accept="application/json" hidden />
+            </label>
+          </div>
+          <div class="divider"></div>
+          <button class="btn danger" id="wipeData" type="button" data-i18n="settings.wipe">Удалить все данные</button>
+          <div class="hint">
+            Экспорт полезен для резервной копии. Импорт перезапишет текущие данные.
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-title">Важно</div>
+          <p class="muted">
+            Этот инструмент не заменяет профессиональную помощь. Если вы чувствуете, что вам небезопасно —
+            обратитесь к близким и в экстренные службы вашего региона.
+          </p>
+        </section>
+      </section>
+
+      <section class="route" data-view="auth" hidden>
+        <div class="page-head">
+          <h1 data-i18n="auth.title">Регистрация и вход</h1>
+          <p class="muted">Управляйте аккаунтом для персонального доступа к функциям.</p>
+        </div>
+
+        <div class="grid2">
+          <form class="card form" id="registerForm">
+            <div class="card-title">Регистрация</div>
+            <div class="field">
+              <label for="registerName">Имя</label>
+              <input id="registerName" type="text" required placeholder="Ваше имя" />
+            </div>
+            <div class="field">
+              <label for="registerEmail">Email</label>
+              <input id="registerEmail" type="text" required placeholder="name@example.com" />
+            </div>
+            <div class="field">
+              <label for="registerPassword">Пароль</label>
+              <input id="registerPassword" type="password" required placeholder="Минимум 6 символов" />
+            </div>
+            <button class="btn primary" type="submit" data-i18n="auth.create">Создать аккаунт</button>
+          </form>
+
+          <form class="card form" id="loginForm">
+            <div class="card-title">Вход</div>
+            <div class="field">
+              <label for="loginEmail">Email</label>
+              <input id="loginEmail" type="text" required placeholder="name@example.com" />
+            </div>
+            <div class="field">
+              <label for="loginPassword">Пароль</label>
+              <input id="loginPassword" type="password" required placeholder="Ваш пароль" />
+            </div>
+            <button class="btn primary" id="loginSubmitBtn" type="submit" data-i18n="auth.signIn">Войти</button>
+            <div class="hint">После входа новые записи будут сохраняться в вашем профиле.</div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <div class="container footer-inner">
+        <div class="footer-links">
+          <button class="footer-link" type="button" data-footer-info="feedback" data-i18n="footer.feedback">Обратная связь</button>
+          <button class="footer-link" type="button" data-footer-info="contacts" data-i18n="footer.contacts">Контакты</button>
+          <button class="footer-link" type="button" data-footer-info="terms" data-i18n="footer.terms">Пользовательское соглашение</button>
+          <button class="footer-link" type="button" data-footer-info="privacy" data-i18n="footer.privacy">Политика конфиденциальности</button>
+        </div>
+        <p class="footer-text" data-i18n="footer.about">
+          Платформа самопомощи для отслеживания настроения, ведения дневника и ежедневных практик.
+        </p>
+        <p class="footer-contact">
+          <span data-i18n="footer.support">Поддержка:</span>
+          <a href="mailto:PSYsupport@gmail.com">PSYsupport@gmail.com</a>
+        </p>
+      </div>
+    </footer>
+
+    <dialog class="modal" id="modal">
+      <form method="dialog" class="modal-inner">
+        <div class="modal-head">
+          <div class="modal-title" id="modalTitle" data-i18n="common.tip">Подсказка</div>
+          <button class="icon-btn" value="cancel" data-i18n-aria-label="common.close" aria-label="Закрыть" type="submit">✕</button>
+        </div>
+        <div class="modal-body" id="modalBody"></div>
+        <div class="modal-actions">
+          <button class="btn primary" value="ok" type="submit" data-i18n="common.ok">Ок</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./app.js" defer></script>
+  </body>
+</html>
